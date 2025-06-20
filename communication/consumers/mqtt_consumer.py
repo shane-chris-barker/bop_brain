@@ -1,0 +1,1 @@
+from communication.consumers.consumer_interface import ConsumerInterface
