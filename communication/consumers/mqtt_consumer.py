@@ -4,6 +4,9 @@ import json
 import paho.mqtt.client as mqtt
 from bop_common.dtos.communication_dto import CommunicationDTO
 from communication.consumers.consumer_interface import ConsumerInterface
+from communication.handlers.handler_registry import HandlerRegistry
+from communication.handlers.incoming_communication_message_handler_interface import \
+    IncomingCommunicationMessageHandlerInterface
 
 class MqttConsumer(ConsumerInterface):
 
@@ -23,6 +26,14 @@ class MqttConsumer(ConsumerInterface):
         self._is_connected = False
 
     def consume(self, message: CommunicationDTO) -> None:
+        handler_class = HandlerRegistry.get_handler_for_message(message)
+        if handler_class:
+            logger.info(f"{self.log_prefix} found a handler!")
+            handler: IncomingCommunicationMessageHandlerInterface = handler_class
+            handler.handle(message)
+        else:
+            logger.warning(f"{self.log_prefix} failed to find a handler!")
+
         logger.info(f"{self.log_prefix} consumed message {message}")
 
     def _on_connect(self, client, userdata, flags, reason_code, properties=None):
@@ -39,7 +50,7 @@ class MqttConsumer(ConsumerInterface):
 
         try:
             data = json.loads(payload)
-            message = CommunicationDTO(**data)
+            message = CommunicationDTO.from_dict(data)
             self.consume(message)
         except Exception as e:
             logger.error(f"{self.log_prefix} {e}")
