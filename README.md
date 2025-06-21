@@ -1,3 +1,4 @@
+[![Tests](https://github.com/shane-chris-barker/bop_brain/actions/workflows/test.yml/badge.svg)](https://github.com/shane-chris-barker/bop_brain/actions/workflows/test.yml)
 # 🧠 Bop Brain
 **Bop Brain** is the decision module for **Bop**, a work-in-progress Raspberry Pi-powered robot pet project.
 
