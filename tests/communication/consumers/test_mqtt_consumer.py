@@ -1,4 +1,3 @@
-import pytest
 import json
 from unittest.mock import MagicMock
 from communication.consumers.mqtt_consumer import MqttConsumer
@@ -38,7 +37,6 @@ class TestMqttConsumer:
         mock_message.payload = b"hello, I am not valid Json"
         consumer._on_message(None, None, mock_message)
         assert any("[🦟 MQTT Consumer]" in rec.message for rec in caplog.records)
-
 
     def test_start_and_stop_methods(self):
         consumer = MqttConsumer()
