@@ -1,10 +1,9 @@
 import logging
+logger = logging.getLogger(__name__)
 from events.publishers.amqp_publisher import AmqpPublisher
 from events.publishers.mock_publisher import MockPublisher
 from events.publishers.mqtt_publisher import MqttPublisher
 from config import get_config
-
-logger = logging.getLogger(__name__)
 
 def get_publisher():
     config = get_config()

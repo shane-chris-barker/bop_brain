@@ -6,7 +6,7 @@ from pika.exceptions import AMQPError
 from typing import Optional
 from events.publishers.publisher_interface import PublisherInterface
 from bop_common.dtos.event_dto import EventDTO
-from communication.exceptions.publisher_exceptions import (
+from bop_common.exceptions.publisher_exceptions import (
     PublisherConnectionException,
     PublisherPublishException
 )
@@ -21,7 +21,7 @@ class AmqpPublisher(PublisherInterface):
     failed_to_publish_message = "Failed to publish message =>"
     success_publish_message = "Published"
 
-    def __init__(self, host='localhost', port=5672, queue_name='communications'):
+    def __init__(self, host='localhost', port=5672, queue_name='events'):
         self.log_prefix = f"[🐇 {self.__class__.__name__}]"
         logging.info(f"{self.log_prefix} Attempting to start AMQP Publisher")
         self.host = host

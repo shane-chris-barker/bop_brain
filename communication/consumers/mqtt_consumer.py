@@ -19,7 +19,7 @@ class MqttConsumer(ConsumerInterface):
         self.host = host
         self.port = port
         self.topic = topic
-        self.client = mqtt.Client()
+        self.client = mqtt.Client(callback_api_version=mqtt.CallbackAPIVersion.VERSION2, protocol=mqtt.MQTTv5)
         self.client.on_connect = self._on_connect
         self.client.on_message = self._on_message
         self.log_prefix = f"[🦟 MQTT Consumer]"

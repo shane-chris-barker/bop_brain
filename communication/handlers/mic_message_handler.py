@@ -5,6 +5,7 @@ from bop_common.dtos.communication_dto import CommunicationDTO
 from bop_common.enums.event_type import EventType
 from communication.handlers.incoming_communication_message_handler_interface import \
     IncomingCommunicationMessageHandlerInterface
+from events.factories.publisher_factory import get_publisher
 
 class MicMessageHandler(IncomingCommunicationMessageHandlerInterface):
     def __init__(self) -> None:
@@ -24,5 +25,7 @@ class MicMessageHandler(IncomingCommunicationMessageHandlerInterface):
         for keyword, event_type in self.keyword_event_map.items():
             if keyword in text:
                 event_dto = EventDTO(event_type=event_type)
+                publisher = get_publisher()
+                publisher.publish(event_dto)
                 logger.info(f"{self.log_prefix} Dispatched event:{event_type} for keyword:{keyword}")
                 break
