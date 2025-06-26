@@ -1,7 +1,6 @@
 import json
 import paho.mqtt.client as mqtt
 import logging
-from paho.mqtt.client import CallbackAPIVersion
 from events.publishers.publisher_interface import PublisherInterface
 from bop_common.dtos.event_dto import EventDTO
 from bop_common.exceptions.publisher_exceptions import (
