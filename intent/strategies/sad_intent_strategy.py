@@ -6,7 +6,7 @@ from events.factories.publisher_factory import get_publisher
 
 class SadIntentStrategy(IntentStrategyInterface):
     def matches(self, text: str) -> bool:
-        return "dance" in text
+        return "sad" in text
     def execute(self, dto: CommunicationDTO):
         event = EventDTO(event_type=EventType.BOP_SAD)
         get_publisher().publish(event)

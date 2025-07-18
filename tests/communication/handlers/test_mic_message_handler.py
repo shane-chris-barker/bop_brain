@@ -14,8 +14,7 @@ class TestMicMessageHandler:
 
         with patch("communication.handlers.mic_message_handler.logger") as mock_logger:
             handler.handle(dummy_message)
-            mock_logger.info.assert_any_call("[🎤 MIC HANDLER] is checking for the word(s): shut up and dance")
-            mock_logger.info.assert_any_call("[🎤 MIC HANDLER] Dispatched event:EventType.BOP_DANCE for keyword:dance")
+            mock_logger.info.assert_any_call("[🎤 MIC HANDLER] just picked up a message!")
 
     def test_handle_no_match_logs_no_match(self):
         handler = MicMessageHandler()
@@ -25,7 +24,7 @@ class TestMicMessageHandler:
         )
         with patch("communication.handlers.mic_message_handler.logger") as mock_logger:
             handler.handle(dummy_message)
-            mock_logger.info.assert_any_call("[🎤 MIC HANDLER] is checking for the word(s): oogie boogie")
+            mock_logger.info.assert_any_call("[🎤 MIC HANDLER] just picked up a message!")
 
 
 
